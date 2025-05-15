@@ -1,3 +1,9 @@
+Run the following commands to install the necessary dependencies:
+
+```shell
+pip install -U transformers accelerate datasets deepspeed "sglang[all]>=0.4.6.post4"
+```
+
 To run inference to generate preference attributes or annotations, run:
 
 ```shell
@@ -81,4 +87,14 @@ accelerate launch \
     --save_total_limit 999999 \
     --seed ${seed} \
     --resume_from_checkpoint
+```
+
+We prepared the evaluation data in our customized format. To prevent potential contamination by uploading the data to GitHub, we do not upload the data to this repository, but can provide it upon request. To run evaluation, run:
+
+```shell
+cd eval
+model_path=Qwen3-1.7B-BRM
+accelerate launch eval_all.py \
+    --model_name_or_path "$model_path" \
+    --batch_size 20000
 ```
